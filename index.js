@@ -142,3 +142,19 @@ async function fetchSearchWeatherInfo(city) {
         alert("Something went wrong. Please try again.");
     }
 }
+// Call this function when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+    getfromSessionStorage();
+});
+
+// Modify getfromSessionStorage() to request location on first visit
+function getfromSessionStorage() {
+    const localCoordinates = sessionStorage.getItem("user-coordinates");
+    if (!localCoordinates) {
+        // Request location immediately when page loads
+        getlocation();
+    } else {
+        const coordinates = JSON.parse(localCoordinates);
+        fetchUserWeatherInfo(coordinates);
+    }
+}
